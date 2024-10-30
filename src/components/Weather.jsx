@@ -1,23 +1,42 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
 // import { TiWeatherDownpour } from 'react-icons/ti';
-import { TiWeatherPartlySunny } from 'react-icons/ti';
-import { TiWeatherSunny } from 'react-icons/ti';
+// import { TiWeatherPartlySunny } from 'react-icons/ti';
+// import { TiWeatherSunny } from 'react-icons/ti';
 import { WiHumidity } from "react-icons/wi";
 import { WiWindBeaufort11 } from 'react-icons/wi';
+// import cloudy from '../assets/slightly-cloudy-1265204_1280.png'
+// import weather from '../assets/weather-2.png'
 
-import weather from '../assets/weather-2.png'
+import Atom from   '../assets/atmosphere.svg' 
+import clear from   '../assets/clear.svg' 
+import cloud from   '../assets/clouds.svg' 
+import drizzle from   '../assets/drizzle.svg' 
+import rain from   '../assets/rain.svg' 
+import snow from   '../assets/snow.svg' 
+// import thunder from   '../assets/thunderstorm.svg'
 const Weather = () => {
   const inputRef = useRef()
   const [weatherData, setWeatherData] = useState(false)
 
-  // const allIcons = {
-  //   "01d": WiHumidity,
-  //   "01n": WiHumidity,
-  //   "02d": WiWindBeaufort11,
-  //   "02n": TiWeatherPartlySunny,
+    const allIcons = {
+      "01d": clear,
+      "01n":clear ,
+      "02d": cloud,
+      "02n": cloud,
+      "03d":cloud,
+      "03n":cloud,
+      "04d":drizzle,
+      "04n":drizzle,
+      "09d":rain,
+      "09n":rain,
+      "10d":rain,
+      "10n":rain,
+      "13d":snow,
+      "13n":snow,
+    
 
-  // }
+     }
 
   const search = async (city)=>{
     if(city === "")
@@ -34,12 +53,13 @@ const Weather = () => {
       }
 
       console.log(data)
+      const icon = allIcons[data.weather[0].icon]   || clear_icon;
       setWeatherData({
         humidity: data.main.humidity,
         windSpeed: data.wind.speed,
-        temperature:Math.floor(data.main.temp),
+        temperature: Math.floor(data.main.temp),
         location: data.name,
-        icon:"https://openweathermap.org/img/wn/02d@2x.png"
+        icon:icon
       },[])
       
     } catch (error){
